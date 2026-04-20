@@ -40,7 +40,10 @@ def sort_arb_content(content: str, indent: int | None = None) -> str:
     regular_keys = {k: v for k, v in data.items() if not k.startswith("@")}
 
     # Sort regular keys alphabetically (case-insensitive).
-    sorted_regular = sorted(regular_keys.keys(), key=str.casefold)
+    sorted_regular = sorted(
+        regular_keys.keys(),
+        key=lambda s: (s.casefold(), s.swapcase())  # lowercase-first on ties
+    )
 
     sorted_data = {}
 
